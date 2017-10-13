@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public Sprite dmgSprite;
-    public int hitPoints = 4;
+    public Sprite _dmgSprite;
+    public int _hitPoints = 4;
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer __spriteRenderer;
 
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        __spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void DamageWall(int loss)
     {
-        spriteRenderer.sprite = dmgSprite;
+        __spriteRenderer.sprite = _dmgSprite;
 
-        hitPoints -= loss;
+        _hitPoints -= loss;
 
-        if (hitPoints <= 0)
+        if (_hitPoints <= 0)
             gameObject.SetActive(false);
     }
 }

@@ -22,7 +22,6 @@ public class Enemy : MovingObject {
 
     protected override void AttemptMove<T>(int xDirection, int yDirection)
     {
-
         if (__skipMove)
         {
             __skipMove = false;
