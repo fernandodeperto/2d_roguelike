@@ -55,7 +55,7 @@ public class Player : MovingObject {
 
         base.AttemptMove<T>(xDirection, yDirection);
 
-        RaycastHit2D hit;
+        // RaycastHit2D hit;
 
         CheckIfGameOver();
 

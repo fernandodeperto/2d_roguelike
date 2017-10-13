@@ -10,7 +10,12 @@ public class GameManager : MonoBehaviour
     public int _playerFoodPoints = 100;
     [HideInInspector] public bool _playersTurn = true;
 
+    public float _turnDelay = .1f;
+
     private int __level = 3;
+
+    private List<Enemy> __enemies;
+    private bool __enemiesMoving;
 
     void Awake()
     {
@@ -21,17 +26,53 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        __enemies = new List<Enemy>();
+
         _boardScript = GetComponent<BoardManager>();
         InitGame();
     }
 
     void InitGame()
     {
+        __enemies.Clear();
+
         _boardScript.SetupScene(__level);
     }
 
     public void GameOver()
     {
         enabled = false;
+    }
+
+    IEnumerator MoveEnemies()
+    {
+        __enemiesMoving = true;
+
+        yield return new WaitForSeconds(_turnDelay);
+
+        if (__enemies.Count == 0)
+            yield return new WaitForSeconds(_turnDelay);
+
+        for (int i = 0; i < __enemies.Count; i++)
+        {
+            __enemies[i].MoveEnemy();
+            yield return new WaitForSeconds(__enemies[i]._moveTime);
+        }
+
+        _playersTurn = true;
+        __enemiesMoving = false;
+    }
+
+    private void Update()
+    {
+        if (_playersTurn || __enemiesMoving)
+            return;
+
+        StartCoroutine(MoveEnemies());
+    }
+
+    public void AddEnemyToList(Enemy enemyScript)
+    {
+        __enemies.Add(enemyScript);
     }
 }
