@@ -19,7 +19,8 @@ public class Enemy : MovingObject {
         base.Start();
 	}
 	
-	void Update () {	
+	void Update ()
+    {	
 	}
 
     protected override void AttemptMove<T>(int xDirection, int yDirection)
@@ -52,7 +53,7 @@ public class Enemy : MovingObject {
     {
         Player hitPlayer = component as Player;
 
-        __animator.SetTrigger("enemyAttach");
+        __animator.SetTrigger("enemyAttack");
 
         hitPlayer.LoseFood(_playerDamage);
     }

@@ -15,7 +15,6 @@ public class Player : MovingObject {
 
 	protected override void Start () {
         __animator = GetComponent<Animator>();
-
         __food = GameManager._instance._playerFoodPoints;
 
         base.Start();
