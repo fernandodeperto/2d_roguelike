@@ -93,6 +93,8 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene(int level)
     {
+        print("SetupScene");
+
         int enemyCount = (int)Mathf.Log(level, 2f);
 
         BoardSetup();

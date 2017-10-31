@@ -44,6 +44,8 @@ public class Player : MovingObject {
 
     private void CheckIfGameOver()
     {
+        print("__food=" + __food);
+
         if (__food <= 0)
             GameManager._instance.GameOver();
     }
@@ -71,7 +73,7 @@ public class Player : MovingObject {
 
     private void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Main");
     }
 
     public void LoseFood(int loss)

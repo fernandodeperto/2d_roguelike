@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public BoardManager _boardScript;
     public static GameManager _instance = null;
-
     public int _playerFoodPoints = 100;
     [HideInInspector] public bool _playersTurn = true;
-
     public float _turnDelay = .1f;
+    public float levelStartupDelay = 1f;    
 
-    private int __level = 3;
-
+    private int __level = 1;
     private List<Enemy> __enemies;
     private bool __enemiesMoving;
+    private bool __doingSetup = true;
 
     void Awake()
     {
@@ -30,10 +30,14 @@ public class GameManager : MonoBehaviour
 
         _boardScript = GetComponent<BoardManager>();
         InitGame();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void InitGame()
     {
+        //__doingSetup = true;
+
         __enemies.Clear();
 
         _boardScript.SetupScene(__level);
@@ -42,6 +46,13 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         enabled = false;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        __level++;
+
+        InitGame();
     }
 
     IEnumerator MoveEnemies()
