@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
         //__doingSetup = true;
 
         __enemies.Clear();
-
         _boardScript.SetupScene(__level);
     }
 

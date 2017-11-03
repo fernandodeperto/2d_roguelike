@@ -13,14 +13,16 @@ public class Player : MovingObject {
     private Animator __animator;
     private int __food;
 
-	protected override void Start () {
+	protected override void Start ()
+    {
         __animator = GetComponent<Animator>();
         __food = GameManager._instance._playerFoodPoints;
 
         base.Start();
 	}
 	
-	void Update () {
+	void Update ()
+    {
         if (!GameManager._instance._playersTurn)
             return;
 

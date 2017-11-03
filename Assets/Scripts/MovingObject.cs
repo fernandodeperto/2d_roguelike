@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MovingObject : MonoBehaviour {
+public abstract class MovingObject : MonoBehaviour
+{
     public float _moveTime = .1f;
     public LayerMask _blockingLayer;
 
@@ -11,7 +12,8 @@ public abstract class MovingObject : MonoBehaviour {
 
     private float __inverseMoveTime;
 
-	protected virtual void Start () {
+	protected virtual void Start ()
+    {
         __boxCollider = GetComponent<BoxCollider2D>();
         __rigidBody = GetComponent<Rigidbody2D>();
         __inverseMoveTime = 1f / _moveTime;
