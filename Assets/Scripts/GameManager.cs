@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,10 +13,10 @@ public class GameManager : MonoBehaviour
     public float _turnDelay = .1f;
     public float levelStartupDelay = 1f;    
 
-    private int __level = 1;
+    private int __level = 0;
     private List<Enemy> __enemies;
     private bool __enemiesMoving;
-    private bool __doingSetup = true;
+    private Text __levelText;
 
     void Awake()
     {
@@ -29,17 +30,17 @@ public class GameManager : MonoBehaviour
         __enemies = new List<Enemy>();
 
         _boardScript = GetComponent<BoardManager>();
-        InitGame();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void InitGame()
     {
-        //__doingSetup = true;
-
         __enemies.Clear();
         _boardScript.SetupScene(__level);
+
+        __levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        __levelText.text = __level.ToString();
     }
 
     public void GameOver()

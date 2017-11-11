@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MovingObject {
     public int _wallDamage = 1;
@@ -12,16 +13,18 @@ public class Player : MovingObject {
 
     private Animator __animator;
     private int __food;
+    private Text __foodText;
 
 	protected override void Start ()
     {
         __animator = GetComponent<Animator>();
         __food = GameManager._instance._playerFoodPoints;
+        __foodText = GameObject.Find("FoodText").GetComponent<Text>();
 
         base.Start();
 	}
 	
-	void Update ()
+	void Update()
     {
         if (!GameManager._instance._playersTurn)
             return;
@@ -37,6 +40,8 @@ public class Player : MovingObject {
 
         if (horizontal != 0 || vertical != 0)
             AttemptMove<Wall>(horizontal, vertical);
+
+        __foodText.text = __food.ToString();
     }
 
     private void OnDisable()
@@ -46,8 +51,6 @@ public class Player : MovingObject {
 
     private void CheckIfGameOver()
     {
-        print("__food=" + __food);
-
         if (__food <= 0)
             GameManager._instance.GameOver();
     }
@@ -57,8 +60,6 @@ public class Player : MovingObject {
         __food--;
 
         base.AttemptMove<T>(xDirection, yDirection);
-
-        // RaycastHit2D hit;
 
         CheckIfGameOver();
 
